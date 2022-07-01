@@ -26,12 +26,22 @@ function onDeviceReady() {
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     document.getElementById('deviceready').classList.add('ready');
-
-    alert(
-        "Model" + device.model +
-        "\n Cordova: " + device.cordova +
-        "\n Platform: " + device.platform +
-        "\n Build: " + device.uuid +
-        "\n Version: " + device.version
+    navigator.notification.confirm(
+        "What do you want to do?",
+        onConfirm,
+        "My Notification",
+        ["Beep", "Vibrate"]
     );
+
+}
+
+function onConfirm(buttonIndex){
+    if(buttonIndex == 1){
+        navigator.notification.beep(5);
+    }
+    else{
+        navigator.notification.vibrate(2000);
+    }
+
+    alert("You selected button: " + buttonIndex);
 }
